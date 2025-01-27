@@ -1,0 +1,53 @@
+{
+    "name": "Google Sheets to Gmail Notification",
+    "nodes": [
+      {
+        "parameters": {
+          "sheetId": "your-google-sheet-id",
+          "range": "Sheet1!A1:B1",
+          "triggerMode": "onNewRow"
+        },
+        "name": "Google Sheets",
+        "type": "n8n-nodes-base.googleSheetsTrigger",
+        "typeVersion": 1,
+        "position": [
+          240,
+          300
+        ],
+        "credentials": {
+          "googleSheetsOAuth2": "your-google-sheets-credentials"
+        }
+      },
+      {
+        "parameters": {
+          "to": "recipient@example.com",
+          "subject": "New Google Sheets Entry",
+          "text": "A new entry has been added: {{$json[\"name\"]}}."
+        },
+        "name": "Send Email",
+        "type": "n8n-nodes-base.gmail",
+        "typeVersion": 1,
+        "position": [
+          480,
+          300
+        ],
+        "credentials": {
+          "gmailOAuth2": "your-gmail-credentials"
+        }
+      }
+    ],
+    "connections": {
+      "Google Sheets": {
+        "main": [
+          [
+            {
+              "node": "Send Email",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    }
+  }
+  
